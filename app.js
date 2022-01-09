@@ -13,8 +13,6 @@ env.config();
 
 const app = express();
 
-const port = 3000;
-
 app.use(json({ limit: "10mb" }));
 app.use("/api/v1/admin/song", songRoute);
 app.use("/api/v1/admin/artist", artistRoute);
@@ -38,7 +36,7 @@ mongoose
         JSON.parse(process.env.FIREBASE_CONFIG)
       ),
     });
-    app.listen(port, () => {
+    app.listen(() => {
       console.log(`Server running at http://localhost:${port}`);
     });
   })
