@@ -1,38 +1,47 @@
 const router = require("express").Router();
 const { body } = require("express-validator");
 
-const { Song } = require("../../models/song");
+const { inputValidation } = require("../../middlewares/input-validation");
 
-router.get("/", async function (req, res, next) {
-  try {
-    const song = await new Song({
-      name: "Hein Soe Htet",
-    }).save();
-    res.send(song);
-  } catch (error) {
-    return next(new Error("internal error"));
-  }
-});
+const { create } = require("../../controllers/admin/song");
 
-router.post("/", [
-  body("title")
-    .exists({ checkNull: true })
-    .not()
-    .isEmpty({ ignore_whitespace: true })
-    .withMessage("required title")
-    .isString()
-    .withMessage("title is not string")
-    .trim()
-    .escape(),
-  body("album")
-    .exists({ checkNull: true })
-    .not()
-    .isEmpty({ ignore_whitespace: true })
-    .withMessage("required album")
-    .isString()
-    .withMessage("title is not string")
-    .trim()
-    .escape(),
-]);
+const genre = ["pop", "rock", "country"];
+
+router.post(
+  "/",
+  [
+    body("title").isString().withMessage("invalid title").trim(),
+    body("album_id").optional().isMongoId().withMessage("invalid album id"),
+    body("artist_id").isMongoId().withMessage("invalid artist id"),
+    body("featured_artist")
+      .optional()
+      .isArray({ min: 1, max: 10 })
+      .withMessage("invalid featured artist"),
+    body("genre")
+      .isArray({ min: 1, max: 10 })
+      .custom((types) => {
+        types.forEach((type) => {
+          if (!genre.includes(type)) {
+            throw new Error("invalid genre");
+          }
+        });
+        return true;
+      }),
+    body("language")
+      .isIn(["myanmar", "korea", "english"])
+      .withMessage("invalid language"),
+    body("source").isString().withMessage("invalid source"),
+    body("cover_source")
+      .optional()
+      .isString()
+      .withMessage("invalid cover source"),
+    body("translation_title")
+      .optional()
+      .isString()
+      .withMessage("invalid translation title"),
+  ],
+  inputValidation,
+  create
+);
 
 module.exports = router;

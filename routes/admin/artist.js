@@ -7,7 +7,15 @@ const { create } = require("../../controllers/admin/artist");
 
 router.post(
   "/",
-  [body("name").isString().withMessage("invalid name")],
+  [
+    body("name").isString().withMessage("invalid name").trim(),
+    body("image_source").isString().withMessage("invalid image source"),
+    body("translation_name")
+      .optional()
+      .isString()
+      .withMessage("invalid translation name")
+      .trim(),
+  ],
   inputValidation,
   create
 );

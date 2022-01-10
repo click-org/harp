@@ -8,8 +8,13 @@ const { create } = require("../../controllers/admin/album");
 router.post(
   "/",
   [
-    body("name").isString().withMessage("invalid name"),
+    body("name").isString().withMessage("invalid name").trim(),
     body("artist_id").isMongoId().withMessage("invalid artist id"),
+    body("translation_name")
+      .optional()
+      .isString()
+      .withMessage("invalid translation name")
+      .trim(),
   ],
   inputValidation,
   create
