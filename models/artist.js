@@ -9,4 +9,9 @@ const artistSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+artistSchema.index(
+  { name: "text", translation_name: "text" },
+  { sparse: true }
+);
+
 module.exports.Artist = mongoose.model("artist", artistSchema);
