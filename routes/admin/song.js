@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { body } = require("express-validator");
 
 const { inputValidation } = require("../../middlewares/input-validation");
+const { verifyToken } = require("../../middlewares/verify-token");
 
 const { create } = require("../../controllers/admin/song");
 
@@ -41,6 +42,7 @@ router.post(
       .withMessage("invalid translation title"),
   ],
   inputValidation,
+  verifyToken,
   create
 );
 

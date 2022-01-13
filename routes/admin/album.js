@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { header, body, query } = require("express-validator");
 
 const { inputValidation } = require("../../middlewares/input-validation");
+const { verifyToken } = require("../../middlewares/verify-token");
 
 const { create } = require("../../controllers/admin/album");
 
@@ -17,6 +18,7 @@ router.post(
       .trim(),
   ],
   inputValidation,
+  verifyToken,
   create
 );
 
