@@ -5,6 +5,6 @@ module.exports.verifyToken = async (req, res, next) => {
     await getAuth().verifyIdToken(req.headers.auth_token);
     next();
   } catch (error) {
-    return next(new Error(error.msg));
+    return next(new Error("invalid token"));
   }
 };
