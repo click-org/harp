@@ -8,6 +8,7 @@ const admin = require("firebase-admin");
 const songRoute = require("./routes/song");
 const artistRoute = require("./routes/artist");
 const albumRoute = require("./routes/album");
+const typeRoute = require("./routes/type");
 
 const adminSongRoute = require("./routes/admin/song");
 const adminArtistRoute = require("./routes/admin/artist");
