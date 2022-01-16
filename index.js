@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { json } = require("body-parser");
 const env = require("dotenv");
 const mongoose = require("mongoose");
@@ -19,6 +20,11 @@ env.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(json({ limit: "10mb" }));
 
 app.use("/api/v1/song", songRoute);
