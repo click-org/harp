@@ -9,7 +9,7 @@ module.exports.search = async (req, res, next) => {
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
-      .select({ name: 1, translation_name: 1, score: -1 })
+      .select({ score: -1 })
       .exec();
 
     return res.json({
