@@ -5,9 +5,15 @@ module.exports.getById = async (req, res, next) => {
 
   try {
     const song = await Song.findByIdAndUpdate(songId, { $inc: { count: 1 } })
-      .populate({ path: "album_id", select: ["name", "cover_source"] })
-      .populate({ path: "artist_id", select: ["name", "image_source"] })
-      .select({ createdAt: -1, updatedAt: -1 })
+      .populate({
+        path: "album_id",
+        select: ["name", "cover_source", "translation_name"],
+      })
+      .populate({
+        path: "artist_id",
+        select: ["name", "image_source", "translation_name"],
+      })
+      .select("-createdAt -updatedAt -__v")
       .exec();
 
     return res.json({
@@ -47,7 +53,7 @@ module.exports.getWithQuery = async (req, res, next) => {
         path: "artist_id",
         select: ["name", "image_source", "translation_name"],
       })
-      .select({ createdAt: -1, updatedAt: -1 })
+      .select("-createdAt -updatedAt -__v")
       .exec();
 
     return res.json({
@@ -65,13 +71,13 @@ module.exports.search = async (req, res, next) => {
 
   try {
     const songs = await Song.find(
-      { $text: { $search: `\"${keyword}\"` } },
+      { $text: { $search: keyword, $caseSensitive: false } },
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
       .populate({ path: "album_id", select: ["name"] })
       .populate({ path: "artist_id", select: ["name"] })
-      .select({ score: -1, createdAt: -1, updatedAt: -1 })
+      .select("-score -createdAt -updatedAt -__v")
       .exec();
 
     return res.json({

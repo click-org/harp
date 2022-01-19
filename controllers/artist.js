@@ -5,11 +5,16 @@ module.exports.search = async (req, res, next) => {
 
   try {
     const artists = await Artist.find(
-      { $text: { $search: `\"${keyword}\"` } },
+      {
+        $text: {
+          $search: keyword,
+          $caseSensitive: false,
+        },
+      },
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
-      .select({ score: -1 })
+      .select("-score -createdAt -updatedAt -__v")
       .exec();
 
     return res.json({

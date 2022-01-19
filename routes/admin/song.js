@@ -5,7 +5,7 @@ const { inputValidation } = require("../../middlewares/input-validation");
 const { verifyToken } = require("../../middlewares/verify-token");
 
 const { genre, language } = require("../../util/constant");
-const { create, remove } = require("../../controllers/admin/song");
+const { create, remove, edit } = require("../../controllers/admin/song");
 
 router.post(
   "/",

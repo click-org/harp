@@ -5,7 +5,7 @@ module.exports.getByQuery = async (req, res, next) => {
 
   try {
     const albums = await Album.find({ artist_id: artistId })
-      .select({ createdAt: -1, updatedAt: -1 })
+      .select("-createdAt -updatedAt -__v")
       .exec();
     return res.json({
       status: 1,
@@ -22,12 +22,12 @@ module.exports.search = async (req, res, next) => {
 
   try {
     const albums = await Album.find(
-      { $text: { $search: `\"${keyword}\"` } },
+      { $text: { $search: keyword, $caseSensitive: false } },
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
       .populate({ path: "artist_id", select: ["name"] })
-      .select({ score: -1 })
+      .select("-score -createdAt -updatedAt -__v")
       .exec();
     return res.json({
       status: 1,
