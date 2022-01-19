@@ -46,3 +46,39 @@ module.exports.remove = async (req, res, next) => {
     return next(error);
   }
 };
+
+module.exports.edit = async (req, res, next) => {
+  const albumId = req.params.album_id;
+  const name = req.body.name;
+  const coverSource = req.body.cover_source;
+  const artistId = req.body.artist_id;
+
+  let updateFields;
+  if (name) {
+    updateFields.name = name;
+  }
+
+  if (coverSource) {
+    updateFields.cover_source = coverSource;
+  }
+
+  if (artistId) {
+    updateFields.artist_id = artistId;
+  }
+
+  if (!updateFields) {
+    return next(new Error("need update field"));
+  }
+
+  try {
+    const album = await Album.findByIdAndUpdate(albumId, updateFields).exec();
+
+    return res.json({
+      status: 1,
+      message: "success",
+      data: album,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
