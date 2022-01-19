@@ -1,4 +1,8 @@
+const mongoose = require("mongoose");
+
 const { Artist } = require("../../models/artist");
+const { Album } = require("../../models/album");
+const { Song } = require("../../models/song");
 
 module.exports.create = async (req, res, next) => {
   const name = req.body.name;
@@ -16,6 +20,29 @@ module.exports.create = async (req, res, next) => {
       status: 1,
       message: "success",
       data: artist,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports.remove = async (req, res, next) => {
+  const artistId = req.params.artist_id;
+
+  try {
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    await Artist.findByIdAndDelete(artistId).session(session);
+    await Album.deleteMany({ artist_id: artistId }).session(session);
+    await Song.deleteMany({ artist_id: artistId }).session(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.json({
+      status: 1,
+      message: "success",
     });
   } catch (error) {
     return next(error);
