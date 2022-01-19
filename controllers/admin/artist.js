@@ -48,3 +48,38 @@ module.exports.remove = async (req, res, next) => {
     return next(error);
   }
 };
+
+module.exports.edit = async (req, res, next) => {
+  const artistId = req.params.artist_id;
+  const name = req.body.name;
+  const imageSource = req.body.image_source;
+
+  let updateFields;
+
+  if (name) {
+    updateFields.name = name;
+  }
+
+  if (imageSource) {
+    updateFields.image_source = imageSource;
+  }
+
+  if (updateFields) {
+    return next(new Error("need update field"));
+  }
+
+  try {
+    const artist = await Artist.findByIdAndUpdate(
+      artistId,
+      updateFields
+    ).exec();
+
+    return res.json({
+      status: 1,
+      message: "success",
+      data: artist,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
