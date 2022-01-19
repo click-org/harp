@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const { header, body, query } = require("express-validator");
+const { header, body, query, param } = require("express-validator");
 
 const { inputValidation } = require("../../middlewares/input-validation");
 const { verifyToken } = require("../../middlewares/verify-token");
 
-const { create } = require("../../controllers/admin/album");
+const { create, remove } = require("../../controllers/admin/album");
 
 router.post(
   "/",
@@ -20,6 +20,13 @@ router.post(
   inputValidation,
   verifyToken,
   create
+);
+
+router.delete(
+  "/:album_id",
+  [param("album_id").isMongoId().withMessage("invalid album id")],
+  inputValidation,
+  remove
 );
 
 module.exports = router;
