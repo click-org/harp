@@ -21,36 +21,32 @@ module.exports.getById = async (req, res, next) => {
 };
 
 module.exports.getWithQuery = async (req, res, next) => {
-  const pageSize = req.query.page_size;
   const prevLatest = req.query.prev_latest;
   const filter = req.query.filter;
-  const sort = req.query.sort;
 
   try {
-    let filterWith;
-    let sortBy;
+    const filterWith = {};
 
     if (filter) {
-      filterWith = { [filter[0]]: filter[1] };
+      const key = Object.keys(filter)[0];
+      filterWith[key] = filter[key];
     }
 
-    if (sort == "popularity") {
-      sortBy = { view_count: -1 };
-      if (prevLatest) {
-        filterWith.view_count = { $lt: filter.prevLatest };
-      }
-    } else {
-      sortBy = { title: 1 };
-      if (prevLatest) {
-        filterWith.title = { $gt: filter.prevLatest };
-      }
+    if (prevLatest) {
+      filterWith.view_count = { $lt: filter.prevLatest };
     }
 
     const songs = await Song.find(filterWith)
-      .limit(pageSize)
-      .sort(sortBy)
-      .populate({ path: "album_id", select: ["name", "cover_source"] })
-      .populate({ path: "artist_id", select: ["name", "image_source"] })
+      .limit(20)
+      .sort({ view_count: -1 })
+      .populate({
+        path: "album_id",
+        select: ["name", "cover_source", "translation_name"],
+      })
+      .populate({
+        path: "artist_id",
+        select: ["name", "image_source", "translation_name"],
+      })
       .select({ createdAt: -1, updatedAt: -1 })
       .exec();
 
