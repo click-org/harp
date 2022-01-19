@@ -60,7 +60,7 @@ module.exports.edit = async (req, res, next) => {
   const coverSource = req.body.cover_source;
   const featuredArtist = req.body.featured_artist;
 
-  let updateFields;
+  const updateFields = {};
   if (albumId) {
     updateFields.album_id = albumId;
   }
@@ -97,7 +97,7 @@ module.exports.edit = async (req, res, next) => {
     updateFields.cover_source = coverSource;
   }
 
-  if (!updateFields) {
+  if (updateFields == {}) {
     return next(new Error("need update field"));
   }
 

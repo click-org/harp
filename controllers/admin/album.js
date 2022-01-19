@@ -54,7 +54,7 @@ module.exports.edit = async (req, res, next) => {
   const translationName = req.body.translation_name;
   const artistId = req.body.artist_id;
 
-  let updateFields;
+  const updateFields = {};
   if (name) {
     updateFields.name = name;
   }
@@ -71,7 +71,7 @@ module.exports.edit = async (req, res, next) => {
     updateFields.translation_name = translationName;
   }
 
-  if (!updateFields) {
+  if (updateFields == {}) {
     return next(new Error("need update field"));
   }
 
