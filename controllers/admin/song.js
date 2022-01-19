@@ -34,7 +34,7 @@ module.exports.create = async (req, res, next) => {
   }
 };
 
-module.exports.delete = async (req, res, next) => {
+module.exports.remove = async (req, res, next) => {
   const songId = req.params.song_id;
 
   try {
