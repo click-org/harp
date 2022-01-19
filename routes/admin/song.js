@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 
 const { inputValidation } = require("../../middlewares/input-validation");
 const { verifyToken } = require("../../middlewares/verify-token");
 
-const { create } = require("../../controllers/admin/song");
+const { create, remove } = require("../../controllers/admin/song");
 
 const genre = ["pop", "rock", "country"];
 
@@ -44,6 +44,13 @@ router.post(
   inputValidation,
   verifyToken,
   create
+);
+
+router.delete(
+  "/:song_id",
+  [param("song_id").isMongoId().withMessage("invalid song id")],
+  inputValidation,
+  remove
 );
 
 module.exports = router;

@@ -33,3 +33,17 @@ module.exports.create = async (req, res, next) => {
     return next(error);
   }
 };
+
+module.exports.delete = async (req, res, next) => {
+  const songId = req.params.song_id;
+
+  try {
+    await Song.findByIdAndDelete(songId).exec();
+    return res.json({
+      status: 1,
+      message: "success",
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
