@@ -4,9 +4,8 @@ const { body, param } = require("express-validator");
 const { inputValidation } = require("../../middlewares/input-validation");
 const { verifyToken } = require("../../middlewares/verify-token");
 
+const { genre, language } = require("../../util/constant");
 const { create, remove } = require("../../controllers/admin/song");
-
-const genre = ["pop", "rock", "country"];
 
 router.post(
   "/",
@@ -28,7 +27,7 @@ router.post(
         });
         return true;
       }),
-    body("language")
+    body("language") //Fix here
       .isIn(["myanmar", "korea", "english"])
       .withMessage("invalid language"),
     body("source").isString().withMessage("invalid source"),
@@ -51,6 +50,42 @@ router.delete(
   [param("song_id").isMongoId().withMessage("invalid song id")],
   inputValidation,
   remove
+);
+
+router.patch(
+  "/:song_id",
+  [
+    param("song_id").isMongoId().withMessage("invalid song id"),
+    body("album_id").optional().isMongoId().withMessage("invalid album id"),
+    body("artist_id").optional().isMongoId().withMessage("invalid artist id"),
+    body("language").optional().isIn(language).withMessage("invalid language"),
+    body("genre")
+      .isArray({ min: 1, max: 10 })
+      .custom((types) => {
+        types.forEach((type) => {
+          if (!genre.includes(type)) {
+            throw new Error("invalid genre");
+          }
+        });
+        return true;
+      }),
+    body("source").optional().isString().withMessage("invalid source"),
+    body("cover_source")
+      .optional()
+      .isString()
+      .withMessage("invalid cover source"),
+    body("title").optional().isString().withMessage("invalid title"),
+    body("translation_title")
+      .optional()
+      .isString()
+      .withMessage("invalid translation title"),
+    body("featured_artist")
+      .optional()
+      .isString()
+      .withMessage("invalid featured artist"),
+  ],
+  inputValidation,
+  edit
 );
 
 module.exports = router;
