@@ -53,6 +53,7 @@ module.exports.edit = async (req, res, next) => {
   const artistId = req.params.artist_id;
   const name = req.body.name;
   const imageSource = req.body.image_source;
+  const translationName = req.body.translation_name;
 
   let updateFields;
 
@@ -62,6 +63,10 @@ module.exports.edit = async (req, res, next) => {
 
   if (imageSource) {
     updateFields.image_source = imageSource;
+  }
+
+  if (translationName) {
+    updateFields.translation_name = translationName;
   }
 
   if (!updateFields) {

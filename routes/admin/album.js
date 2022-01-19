@@ -34,6 +34,10 @@ router.patch(
   [
     param("album_id").isMongoId().withMessage("invalid album id"),
     body("name").optional().isString().withMessage("invalid name"),
+    body("translation_name")
+      .optional()
+      .isString()
+      .withMessage("invalid translation name"),
     body("cover_source")
       .optional()
       .isString()

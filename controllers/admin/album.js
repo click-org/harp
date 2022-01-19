@@ -51,6 +51,7 @@ module.exports.edit = async (req, res, next) => {
   const albumId = req.params.album_id;
   const name = req.body.name;
   const coverSource = req.body.cover_source;
+  const translationName = req.body.translation_name;
   const artistId = req.body.artist_id;
 
   let updateFields;
@@ -64,6 +65,10 @@ module.exports.edit = async (req, res, next) => {
 
   if (artistId) {
     updateFields.artist_id = artistId;
+  }
+
+  if (translationName) {
+    updateFields.translation_name = translationName;
   }
 
   if (!updateFields) {

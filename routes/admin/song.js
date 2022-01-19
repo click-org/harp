@@ -27,9 +27,7 @@ router.post(
         });
         return true;
       }),
-    body("language") //Fix here
-      .isIn(["myanmar", "korea", "english"])
-      .withMessage("invalid language"),
+    body("language").isIn(language).withMessage("invalid language"),
     body("source").isString().withMessage("invalid source"),
     body("cover_source")
       .optional()
