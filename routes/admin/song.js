@@ -38,6 +38,7 @@ router.post(
       .isString()
       .withMessage("invalid translation title")
       .trim(),
+    body("lyric").optional().isString().withMessage("invalid lyric"),
   ],
   inputValidation,
   verifyToken,

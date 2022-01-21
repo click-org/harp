@@ -10,6 +10,7 @@ module.exports.create = async (req, res, next) => {
   const source = req.body.source;
   const coverSource = req.body.cover_source;
   const translationTitle = req.body.translation_title;
+  const lyric = req.body.lyric;
 
   try {
     const docExist = await Song.exists({ title: title, artist_id: artistId });
@@ -27,6 +28,7 @@ module.exports.create = async (req, res, next) => {
         source: source,
         cover_source: coverSource,
         translation_title: translationTitle,
+        lyric: lyric,
       }).save();
 
       return res.json({
