@@ -29,22 +29,32 @@ module.exports.getById = async (req, res, next) => {
 module.exports.getWithQuery = async (req, res, next) => {
   const prevLatest = req.query.prev_latest;
   const filter = req.query.filter;
+  const sort = req.query.sort;
 
   try {
     const filterWith = {};
+    let sortBy;
 
     if (filter) {
       const key = Object.keys(filter)[0];
       filterWith[key] = filter[key];
     }
 
-    if (prevLatest) {
-      filterWith.view_count = { $lt: filter.prevLatest };
+    if (sort == "view") {
+      sortBy = { view_count: -1 };
+      if (prevLatest) {
+        filterWith.view_count = { $lt: filter.prevLatest };
+      }
+    } else if (sort == "recent") {
+      sortBy = { createdAt: -1 };
+      if (prevLatest) {
+        filterWith.createdAt = { $lt: filter.prevLatest };
+      }
     }
 
     const songs = await Song.find(filterWith)
       .limit(20)
-      .sort({ view_count: -1 })
+      .sort(sortBy)
       .populate({
         path: "album_id",
         select: ["name", "cover_source", "translation_name"],

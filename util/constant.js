@@ -38,3 +38,5 @@ module.exports.language = [
   "spanish",
   "latin",
 ];
+
+module.exports.sort = ["view", "recent"];

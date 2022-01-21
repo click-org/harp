@@ -4,15 +4,11 @@ const { param, query } = require("express-validator");
 const { inputValidation } = require("../middlewares/input-validation");
 
 const { getById, search, getWithQuery } = require("../controllers/song");
-const { language, genre } = require("../util/constant");
+const { language, genre, sort } = require("../util/constant");
 
 router.get(
   "/",
   [
-    query("prev_latest")
-      .optional()
-      .isNumeric()
-      .withMessage("invalid prev latest"),
     query("filter.artist_id")
       .optional()
       .isMongoId()
@@ -23,6 +19,7 @@ router.get(
       .withMessage("invalid album id"),
     query("language").optional().isIn(language).withMessage("invalid language"),
     query("genre").optional().isIn(genre).withMessage("invalid genre"),
+    query("sort").isIn(sort).withMessage("invalid sort"),
   ],
   inputValidation,
   getWithQuery
