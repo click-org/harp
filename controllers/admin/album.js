@@ -9,18 +9,24 @@ module.exports.create = async (req, res, next) => {
   const translationName = req.body.translation_name;
 
   try {
-    const album = await new Album({
-      name: name,
-      artist_id: artistId,
-      cover_source: coverSource,
-      translation_name: translationName,
-    }).save();
+    const docExist = await Album.exists({ name: name, artist_id: artistId });
 
-    return res.json({
-      status: 1,
-      message: "success",
-      data: album,
-    });
+    if (docExist) {
+      return next(new Error("album has already added"));
+    } else {
+      const album = await new Album({
+        name: name,
+        artist_id: artistId,
+        cover_source: coverSource,
+        translation_name: translationName,
+      }).save();
+
+      return res.json({
+        status: 1,
+        message: "success",
+        data: album,
+      });
+    }
   } catch (error) {
     return next(error);
   }

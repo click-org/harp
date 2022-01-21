@@ -10,17 +10,23 @@ module.exports.create = async (req, res, next) => {
   const imageSource = req.body.image_source;
 
   try {
-    const artist = await new Artist({
-      name: name,
-      image_source: imageSource,
-      translation_name: translationName,
-    }).save();
+    const docExist = await Artist.exists({ name: name });
 
-    return res.json({
-      status: 1,
-      message: "success",
-      data: artist,
-    });
+    if (docExist) {
+      return next(new Error("artist has already added"));
+    } else {
+      const artist = await new Artist({
+        name: name,
+        image_source: imageSource,
+        translation_name: translationName,
+      }).save();
+
+      return res.json({
+        status: 1,
+        message: "success",
+        data: artist,
+      });
+    }
   } catch (error) {
     return next(error);
   }
