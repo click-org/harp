@@ -36,7 +36,8 @@ router.post(
     body("translation_title")
       .optional()
       .isString()
-      .withMessage("invalid translation title"),
+      .withMessage("invalid translation title")
+      .trim(),
   ],
   inputValidation,
   verifyToken,
