@@ -85,6 +85,7 @@ router.patch(
       .isString()
       .withMessage("invalid featured artist"),
     body("track").optional().isNumeric().withMessage("invalid track"),
+    body("lyric").optional().isString().withMessage("invalid lyric"),
   ],
   inputValidation,
   edit

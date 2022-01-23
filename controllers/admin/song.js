@@ -70,6 +70,7 @@ module.exports.edit = async (req, res, next) => {
   const coverSource = req.body.cover_source;
   const featuredArtist = req.body.featured_artist;
   const track = req.body.track;
+  const lyric = req.body.lyric;
 
   const updateFields = {};
   if (albumId) {
@@ -110,6 +111,10 @@ module.exports.edit = async (req, res, next) => {
 
   if (track) {
     updateFields.track = track;
+  }
+
+  if (lyric) {
+    updateFields.lyric = lyric;
   }
 
   if (updateFields == {}) {
