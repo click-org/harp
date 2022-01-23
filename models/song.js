@@ -13,6 +13,7 @@ const songSchema = new mongoose.Schema(
     cover_source: { type: String },
     translation_title: { type: String },
     lyric: { type: String },
+    track: { type: Number },
   },
   { timestamps: true }
 );

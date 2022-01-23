@@ -39,6 +39,7 @@ router.post(
       .withMessage("invalid translation title")
       .trim(),
     body("lyric").optional().isString().withMessage("invalid lyric"),
+    body("track").optional().isNumeric().withMessage("invalid track"),
   ],
   inputValidation,
   verifyToken,
@@ -83,6 +84,7 @@ router.patch(
       .optional()
       .isString()
       .withMessage("invalid featured artist"),
+    body("track").optional().isNumeric().withMessage("invalid track"),
   ],
   inputValidation,
   edit
