@@ -12,6 +12,7 @@ module.exports.create = async (req, res, next) => {
   const translationTitle = req.body.translation_title;
   const lyric = req.body.lyric;
   const track = req.body.track;
+  const releaseDate = req.body.release_date;
 
   try {
     const docExist = await Song.exists({ title: title, artist_id: artistId });
@@ -31,6 +32,7 @@ module.exports.create = async (req, res, next) => {
         translation_title: translationTitle,
         lyric: lyric,
         track: track,
+        release_date: releaseDate,
       }).save();
 
       return res.json({
@@ -71,6 +73,7 @@ module.exports.edit = async (req, res, next) => {
   const featuredArtist = req.body.featured_artist;
   const track = req.body.track;
   const lyric = req.body.lyric;
+  const releaseDate = req.body.release_date;
 
   const updateFields = {};
   if (albumId) {
@@ -115,6 +118,10 @@ module.exports.edit = async (req, res, next) => {
 
   if (lyric) {
     updateFields.lyric = lyric;
+  }
+
+  if (releaseDate) {
+    updateFields.release_date = releaseDate;
   }
 
   if (updateFields == {}) {

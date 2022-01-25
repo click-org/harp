@@ -40,6 +40,10 @@ router.post(
       .trim(),
     body("lyric").optional().isString().withMessage("invalid lyric"),
     body("track").optional().isNumeric().withMessage("invalid track"),
+    body("release_date")
+      .optional()
+      .isISO8601()
+      .withMessage("invalid release date"),
   ],
   inputValidation,
   verifyToken,
@@ -87,6 +91,10 @@ router.patch(
       .withMessage("invalid featured artist"),
     body("track").optional().isNumeric().withMessage("invalid track"),
     body("lyric").optional().isString().withMessage("invalid lyric"),
+    body("release_date")
+      .optional()
+      .isISO8601()
+      .withMessage("invalid release date"),
   ],
   inputValidation,
   verifyToken,

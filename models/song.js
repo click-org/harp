@@ -14,6 +14,7 @@ const songSchema = new mongoose.Schema(
     translation_title: { type: String },
     lyric: { type: String },
     track: { type: Number },
+    release_date: { type: Date },
   },
   { timestamps: true }
 );
