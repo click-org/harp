@@ -21,7 +21,7 @@ const songSchema = new mongoose.Schema(
 songSchema.index({ view_count: 1 });
 songSchema.index(
   { title: "text", translation_title: "text" },
-  { sparse: true }
+  { sparse: true, default_language: "none" }
 );
 
 module.exports.Song = mongoose.model("song", songSchema);

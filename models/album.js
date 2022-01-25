@@ -10,6 +10,9 @@ const albumSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-albumSchema.index({ name: "text", translation_name: "text" }, { sparse: true });
+albumSchema.index(
+  { name: "text", translation_name: "text" },
+  { sparse: true, default_language: "none" }
+);
 
 module.exports.Album = mongoose.model("album", albumSchema);

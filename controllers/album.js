@@ -22,7 +22,12 @@ module.exports.search = async (req, res, next) => {
 
   try {
     const albums = await Album.find(
-      { $text: { $search: keyword, $caseSensitive: false } },
+      {
+        $text: {
+          $search: keyword,
+          $caseSensitive: false,
+        },
+      },
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
