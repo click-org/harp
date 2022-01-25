@@ -78,7 +78,6 @@ module.exports.getWithQuery = async (req, res, next) => {
 
 module.exports.search = async (req, res, next) => {
   const keyword = req.query.keyword;
-
   try {
     const songs = await Song.find(
       { $text: { $search: keyword, $caseSensitive: false } },

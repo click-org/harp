@@ -29,17 +29,17 @@ router.get(
 );
 
 router.get(
-  "/:song_id",
-  [param("song_id").isMongoId().withMessage("invalid song id")],
-  inputValidation,
-  getById
-);
-
-router.get(
   "/search",
   [query("keyword").isString().withMessage("invalid keyword")],
   inputValidation,
   search
+);
+
+router.get(
+  "/:song_id",
+  [param("song_id").isMongoId().withMessage("invalid song id")],
+  inputValidation,
+  getById
 );
 
 module.exports = router;
