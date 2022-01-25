@@ -17,8 +17,11 @@ router.get(
       .optional()
       .isMongoId()
       .withMessage("invalid album id"),
-    query("language").optional().isIn(language).withMessage("invalid language"),
-    query("genre").optional().isIn(genre).withMessage("invalid genre"),
+    query("filter.language")
+      .optional()
+      .isIn(language)
+      .withMessage("invalid language"),
+    query("filter.genre").optional().isIn(genre).withMessage("invalid genre"),
     query("sort").isIn(sort).withMessage("invalid sort"),
   ],
   inputValidation,

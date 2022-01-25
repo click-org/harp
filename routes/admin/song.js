@@ -50,6 +50,7 @@ router.delete(
   "/:song_id",
   [param("song_id").isMongoId().withMessage("invalid song id")],
   inputValidation,
+  verifyToken,
   remove
 );
 
@@ -88,6 +89,7 @@ router.patch(
     body("lyric").optional().isString().withMessage("invalid lyric"),
   ],
   inputValidation,
+  verifyToken,
   edit
 );
 

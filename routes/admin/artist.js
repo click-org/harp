@@ -26,6 +26,7 @@ router.delete(
   "/:artist_id",
   [param("artist_id").isMongoId().withMessage("invalid artist id")],
   inputValidation,
+  verifyToken,
   remove
 );
 
@@ -44,6 +45,7 @@ router.patch(
       .withMessage("invalid image source"),
   ],
   inputValidation,
+  verifyToken,
   edit
 );
 
