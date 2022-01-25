@@ -5,7 +5,7 @@ const songSchema = new mongoose.Schema(
     title: { type: String, required: true },
     album_id: { type: mongoose.Types.ObjectId, ref: "album" },
     artist_id: { type: mongoose.Types.ObjectId, required: true, ref: "artist" },
-    featured_artist: { type: [String] },
+    featured_artist: { type: String },
     genre: { type: [String], required: true },
     language: { type: String, required: true },
     view_count: { type: Number, default: 0 },

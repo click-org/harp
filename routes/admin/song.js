@@ -15,7 +15,7 @@ router.post(
     body("artist_id").isMongoId().withMessage("invalid artist id"),
     body("featured_artist")
       .optional()
-      .isArray({ min: 1, max: 10 })
+      .isString()
       .withMessage("invalid featured artist"),
     body("genre")
       .isArray({ min: 1, max: 10 })
