@@ -11,7 +11,7 @@ const artistSchema = new mongoose.Schema(
 
 artistSchema.index(
   { name: "text", translation_name: "text" },
-  { sparse: true, default_language: "none" }
+  { sparse: true, default_language: "none", language_override: "none" }
 );
 
 module.exports.Artist = mongoose.model("artist", artistSchema);

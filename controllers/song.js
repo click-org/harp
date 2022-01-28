@@ -79,13 +79,21 @@ module.exports.getWithQuery = async (req, res, next) => {
 module.exports.search = async (req, res, next) => {
   const keyword = req.query.keyword;
   try {
-    const songs = await Song.find(
-      { $text: { $search: keyword, $caseSensitive: false } },
-      { score: { $meta: "textScore" } }
-    )
+    // { name: { $regex: /^ABC/i } }
+
+    const songs = await Song.find({
+      $text: { $search: keyword, $caseSensitive: false },
+      score: { $meta: "textScore" },
+    })
       .sort({ score: { $meta: "textScore" } })
-      .populate({ path: "album_id", select: ["name"] })
-      .populate({ path: "artist_id", select: ["name"] })
+      .populate({
+        path: "album_id",
+        select: ["name", "cover_source", "translation_name"],
+      })
+      .populate({
+        path: "artist_id",
+        select: ["name", "image_source", "translation_name"],
+      })
       .select("-score -createdAt -updatedAt -__v")
       .exec();
 

@@ -31,7 +31,10 @@ module.exports.search = async (req, res, next) => {
       { score: { $meta: "textScore" } }
     )
       .sort({ score: { $meta: "textScore" } })
-      .populate({ path: "artist_id", select: ["name"] })
+      .populate({
+        path: "artist_id",
+        select: ["name", "image_source", "translation_name"],
+      })
       .select("-score -createdAt -updatedAt -__v")
       .exec();
     return res.json({

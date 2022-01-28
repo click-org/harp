@@ -12,7 +12,7 @@ const albumSchema = new mongoose.Schema(
 
 albumSchema.index(
   { name: "text", translation_name: "text" },
-  { sparse: true, default_language: "none" }
+  { sparse: true, default_language: "none", language_override: "none" }
 );
 
 module.exports.Album = mongoose.model("album", albumSchema);
