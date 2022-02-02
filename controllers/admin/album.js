@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { Album } = require("../../models/album");
 const { Song } = require("../../models/song");
 
@@ -82,7 +81,9 @@ module.exports.edit = async (req, res, next) => {
   }
 
   try {
-    const album = await Album.findByIdAndUpdate(albumId, updateFields).exec();
+    const album = await Album.findByIdAndUpdate(albumId, updateFields, {
+      new: true,
+    }).exec();
 
     return res.json({
       status: 1,

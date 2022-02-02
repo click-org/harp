@@ -129,7 +129,9 @@ module.exports.edit = async (req, res, next) => {
   }
 
   try {
-    const song = await Song.findByIdAndUpdate(songId, updateFields).exec();
+    const song = await Song.findByIdAndUpdate(songId, updateFields, {
+      new: true,
+    }).exec();
 
     return res.json({
       status: 1,
