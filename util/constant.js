@@ -1,4 +1,4 @@
-module.exports.type = ["genre", "language"];
+module.exports.musicTypes = ["genre", "language"];
 
 module.exports.genre = [
   "rock",
@@ -25,6 +25,12 @@ module.exports.genre = [
   "industrial",
   "instumental",
   "alternative rock",
+  "electro pop",
+  "kpop",
+  "reggae",
+  "ballad",
+  "soul",
+  "OST",
 ];
 
 module.exports.language = [
@@ -37,6 +43,22 @@ module.exports.language = [
   "japanese",
   "spanish",
   "latin",
+  "mix",
 ];
 
 module.exports.sort = ["view", "recent"];
+
+module.exports.groupTypes = [
+  "hottest",
+  "editor choice",
+  "new release",
+  "top chart",
+];
+
+module.exports.period = [
+  "today",
+  "this week",
+  "this month",
+  "this year",
+  "lifetime",
+];

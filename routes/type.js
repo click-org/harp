@@ -4,11 +4,11 @@ const { query } = require("express-validator");
 const { inputValidation } = require("../middlewares/input-validation");
 
 const { get } = require("../controllers/type");
-const { type } = require("../util/constant");
+const { musicTypes } = require("../util/constant");
 
 router.get(
   "/",
-  [query("type").isIn(type).withMessage("invalid type")],
+  [query("type").isIn(musicTypes).withMessage("invalid type")],
   inputValidation,
   get
 );
