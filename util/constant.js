@@ -1,4 +1,4 @@
-module.exports.musicTypes = ["genre", "language"];
+module.exports.types = ["genre", "language"];
 
 module.exports.genre = [
   "rock",
@@ -48,11 +48,11 @@ module.exports.language = [
 
 module.exports.sort = ["view", "recent"];
 
-module.exports.groupTypes = [
-  "hottest",
-  "editor choice",
-  "new release",
-  "top chart",
+module.exports.groups = [
+  "Top 100 Billboard Chart",
+  "Top 100 Melon Chart",
+  "New Release",
+  "Featured Songs",
 ];
 
 module.exports.period = [

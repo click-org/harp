@@ -1,4 +1,4 @@
-const { genre, language } = require("../util/constant");
+const { genre, language, sort, groups, period } = require("../util/constant");
 
 module.exports.get = (req, res, next) => {
   const type = req.query.type;
@@ -10,6 +10,15 @@ module.exports.get = (req, res, next) => {
       break;
     case "language":
       data = language;
+      break;
+    case "sort":
+      data = sort;
+      break;
+    case "group":
+      data = groups;
+      break;
+    case peroid:
+      data = period;
       break;
     default:
       break;

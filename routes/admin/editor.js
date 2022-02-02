@@ -4,7 +4,7 @@ const { param, query, body } = require("express-validator");
 const { inputValidation } = require("../../middlewares/input-validation");
 const { verifyToken } = require("../../middlewares/verify-token");
 
-const { period, groupTypes, language } = require("../../util/constant");
+const { period, groups, language } = require("../../util/constant");
 
 const { create, edit, remove } = require("../../controllers/admin/editor");
 
@@ -15,7 +15,7 @@ router.post(
       .isArray({ min: 10, max: 100 })
       .withMessage("invalid song list"),
     body("language").isIn(language).withMessage("invalid language"),
-    body("group_type").isIn(groupTypes).withMessage("invalid group type"),
+    body("group").isIn(groups).withMessage("invalid group type"),
     body("period").isIn(period).withMessage("invalid period"),
   ],
   verifyToken,
@@ -34,7 +34,7 @@ router.patch(
     body("language").optional().isIn(language).withMessage("invalid language"),
     body("group_type")
       .optional()
-      .isIn(groupTypes)
+      .isIn(groups)
       .withMessage("invalid group type"),
     body("peroid").optional().isIn(period).withMessage("invalid period"),
   ],
