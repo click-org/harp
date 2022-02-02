@@ -24,7 +24,7 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: "*",
+    origin: "https://harp-4fc39.web.app",
   })
 );
 app.use(json({ limit: "10mb" }));
