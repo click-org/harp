@@ -15,7 +15,7 @@ router.post(
       .isArray({ min: 10, max: 100 })
       .withMessage("invalid song list"),
     body("language").isIn(language).withMessage("invalid language"),
-    body("group").isIn(groups).withMessage("invalid group type"),
+    body("group").isIn(groups).withMessage("invalid group"),
     body("period").isIn(period).withMessage("invalid period"),
   ],
   verifyToken,
@@ -32,10 +32,7 @@ router.patch(
       .isArray({ min: 10, max: 100 })
       .withMessage("invalid song list"),
     body("language").optional().isIn(language).withMessage("invalid language"),
-    body("group_type")
-      .optional()
-      .isIn(groups)
-      .withMessage("invalid group type"),
+    body("group").optional().isIn(groups).withMessage("invalid group"),
     body("peroid").optional().isIn(period).withMessage("invalid period"),
   ],
   verifyToken,

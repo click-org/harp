@@ -3,14 +3,14 @@ const { Editor } = require("../../models/editor");
 module.exports.create = async (req, res, next) => {
   const language = req.body.language;
   const period = req.body.period;
-  const groupType = req.body.group_type;
+  const group = req.body.group;
   const songList = req.body.song_list;
 
   try {
     const editor = await new Editor({
       song_list: songList,
       language: language,
-      group_type: groupType,
+      group: group,
       period: period,
     }).save();
 
@@ -28,7 +28,7 @@ module.exports.edit = async (req, res, next) => {
   const id = req.params.id;
   const language = req.body.language;
   const period = req.body.period;
-  const groupType = req.body.group_type;
+  const group = req.body.group;
   const songList = req.body.song_list;
 
   try {
@@ -43,7 +43,7 @@ module.exports.edit = async (req, res, next) => {
     }
 
     if (groupType) {
-      updateFields.group_type = groupType;
+      updateFields.group = group;
     }
 
     if (songList) {
