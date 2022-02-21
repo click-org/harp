@@ -17,7 +17,7 @@ module.exports.get = (req, res, next) => {
     case "group":
       data = groups;
       break;
-    case peroid:
+    case "peroid":
       data = period;
       break;
     default:
