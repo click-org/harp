@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const { query } = require("express-validator");
+const { query, param } = require("express-validator");
 
 const { inputValidation } = require("../middlewares/input-validation");
 
-const { search, getByQuery } = require("../controllers/album");
+const { search, getByQuery, get } = require("../controllers/album");
 
 router.get(
   "/",
@@ -17,6 +17,13 @@ router.get(
   [query("keyword").isString().withMessage("keyword")],
   inputValidation,
   search
+);
+
+router.get(
+  "/:album_id",
+  [param("album_id").isMongoId().withMessage("invalid album id")],
+  inputValidation,
+  get
 );
 
 module.exports = router;
