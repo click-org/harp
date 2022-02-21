@@ -1,4 +1,4 @@
-module.exports.types = ["genre", "language"];
+module.exports.types = ["genre", "language", "sort", "group", "period"];
 
 module.exports.genre = [
   "rock",
