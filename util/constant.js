@@ -46,7 +46,7 @@ module.exports.language = [
   "mix",
 ];
 
-module.exports.sort = ["view", "recent"];
+module.exports.sort = ["view", "recent", "released_date"];
 
 module.exports.groups = [
   "Top 100 Billboard Chart",

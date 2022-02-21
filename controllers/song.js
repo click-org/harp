@@ -50,6 +50,11 @@ module.exports.getWithQuery = async (req, res, next) => {
       if (prevLatest) {
         filterWith.createdAt = { $lt: filter.prevLatest };
       }
+    } else if (sort == "released_date") {
+      sortBy = { released_date: -1 };
+      if (prevLatest) {
+        filterWith.released_date = { $lt: filter.prevLatest };
+      }
     }
 
     const songs = await Song.find(filterWith)
