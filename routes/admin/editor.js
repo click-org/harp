@@ -12,7 +12,7 @@ router.post(
   "/",
   [
     body("song_list")
-      .isArray({ min: 10, max: 100 })
+      .isArray({ min: 5, max: 100 })
       .withMessage("invalid song list"),
     body("language").isIn(language).withMessage("invalid language"),
     body("group").isIn(groups).withMessage("invalid group"),

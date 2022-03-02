@@ -19,7 +19,7 @@ module.exports.get = async (req, res, next) => {
     filterWith.group = group;
   }
 
-  if (filterWith == {}) {
+  if (Object.keys(filterWith).length == 0) {
     return next(new Error("give some query"));
   }
 
@@ -28,6 +28,16 @@ module.exports.get = async (req, res, next) => {
       .populate({
         path: "song_list",
         select: "-createdAt -updatedAt -__v",
+        populate: [
+          {
+            path: "album_id",
+            select: ["name", "cover_source", "translation_name"],
+          },
+          {
+            path: "artist_id",
+            select: ["name", "image_source", "translation_name"],
+          },
+        ],
       })
       .select("-createdAt -updatedAt -__v")
       .exec();
