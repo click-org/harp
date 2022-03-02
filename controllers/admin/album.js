@@ -76,7 +76,7 @@ module.exports.edit = async (req, res, next) => {
     updateFields.translation_name = translationName;
   }
 
-  if (updateFields == {}) {
+  if (Object.keys(updateFields).length == 0) {
     return next(new Error("need update field"));
   }
 

@@ -50,6 +50,10 @@ module.exports.edit = async (req, res, next) => {
       updateFields.song_list = songList;
     }
 
+    if (Object.keys(updateFields).length == 0) {
+      return next(new Error("provide some fields"));
+    }
+
     const editor = await Editor.findByIdAndUpdate(id, updateFields, {
       new: true,
     }).exec();

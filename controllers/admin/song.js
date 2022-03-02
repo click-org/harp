@@ -124,7 +124,7 @@ module.exports.edit = async (req, res, next) => {
     updateFields.release_date = releaseDate;
   }
 
-  if (updateFields == {}) {
+  if (Object.keys(updateFields).length == 0) {
     return next(new Error("need update field"));
   }
 
