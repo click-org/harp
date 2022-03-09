@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const { body, query } = require("express-validator");
 
+const { inputValidation } = require("../middlewares/input-validation");
+
 const { create, get } = require("../controllers/songRequest");
 
 router.post(
