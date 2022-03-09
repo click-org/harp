@@ -11,6 +11,7 @@ const artistRoute = require("./routes/artist");
 const albumRoute = require("./routes/album");
 const typeRoute = require("./routes/type");
 const editorRoute = require("./routes/editor");
+const songRequestRoute = require("./routes/songRequest");
 
 const adminSongRoute = require("./routes/admin/song");
 const adminArtistRoute = require("./routes/admin/artist");
@@ -34,6 +35,7 @@ app.use("/api/v1/artist", artistRoute);
 app.use("/api/v1/album", albumRoute);
 app.use("/api/v1/type", typeRoute);
 app.use("/api/v1/editor", editorRoute);
+app.use("/api/v1/request-song", songRequestRoute);
 
 app.use("/api/v1/admin/song", adminSongRoute);
 app.use("/api/v1/admin/artist", adminArtistRoute);
