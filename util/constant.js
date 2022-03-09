@@ -50,7 +50,7 @@ module.exports.sort = ["view", "recent", "released_date"];
 
 module.exports.groups = [
   "Top 100 Billboard Chart",
-  "Top 100 Melon Chart",
+  "Top 100 Gaon Chart",
   "New Release",
   "Featured Songs",
 ];
