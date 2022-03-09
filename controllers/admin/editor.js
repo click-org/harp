@@ -42,7 +42,7 @@ module.exports.edit = async (req, res, next) => {
       updateFields.period = period;
     }
 
-    if (groupType) {
+    if (group) {
       updateFields.group = group;
     }
 

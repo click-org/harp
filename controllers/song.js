@@ -68,7 +68,7 @@ module.exports.getWithQuery = async (req, res, next) => {
         path: "artist_id",
         select: ["name", "image_source", "translation_name"],
       })
-      .select("-createdAt -updatedAt -__v")
+      .select("-updatedAt -__v")
       .exec();
 
     return res.json({
