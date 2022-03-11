@@ -4,7 +4,9 @@ module.exports.getById = async (req, res, next) => {
   const songId = req.params.song_id;
 
   try {
-    const song = await Song.findByIdAndUpdate(songId, { $inc: { count: 1 } })
+    const song = await Song.findByIdAndUpdate(songId, {
+      $inc: { view_count: 1 },
+    })
       .populate({
         path: "album_id",
         select: ["name", "cover_source", "translation_name"],
@@ -43,17 +45,17 @@ module.exports.getWithQuery = async (req, res, next) => {
     if (sort == "view") {
       sortBy = { view_count: -1 };
       if (prevLatest) {
-        filterWith.view_count = { $lt: filter.prevLatest };
+        filterWith.view_count = { $lt: prevLatest };
       }
     } else if (sort == "recent") {
       sortBy = { createdAt: -1 };
       if (prevLatest) {
-        filterWith.createdAt = { $lt: filter.prevLatest };
+        filterWith.createdAt = { $lt: prevLatest };
       }
     } else if (sort == "released_date") {
       sortBy = { released_date: -1 };
       if (prevLatest) {
-        filterWith.released_date = { $lt: filter.prevLatest };
+        filterWith.released_date = { $lt: prevLatest };
       }
     }
 
