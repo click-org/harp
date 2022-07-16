@@ -53,6 +53,7 @@ mongoose
   .connect(process.env.MONGODB_CONNECTION_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    dbName: 'music'
   })
   .then((conn) => {
     admin.initializeApp({
